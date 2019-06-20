@@ -1,0 +1,174 @@
+html,body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	border: 0px;
+	overflow: hidden;
+	background-color: #fff;
+}
+
+.opDiv {
+	padding: 4px;
+	height: 25px;
+	width: 99%;
+	background: url(../images/titlebar_div_bg.jpg) repeat-x 0% 100%;
+	margin: 3px 0px 3px 0px;
+}
+
+.titlebar {
+	float: left;
+	font-size: 18px;
+	font-weight: bold;
+	color: #747474;
+	font-family: ����;
+	height: 25px;
+	line-height: 25px;
+	text-indent: 1em;
+	background: url(../images/doc.gif) no-repeat 0% 30%;
+}
+
+.btn61_21 {
+	width: 61px;
+	height: 21px;
+	line-height:21px;
+	border-width: 0px;
+	border-style:none;
+	padding: 0px;
+	font-size: 12px;
+	margin-right: 3px;
+	background: url(../images/btn.png) no-repeat 0 0;
+	cursor: pointer;
+}
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	background-color: #9FC0EC;
+	text-align: center;
+}
+
+#top_div {
+	position: relative;
+	top: 0px;
+	height: 90px;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1000px;
+}
+
+#border_div {
+	position: relative;
+	top: 0px;
+	width: 100%;
+	height: 26px;
+	background: url(images/middle.png) repeat-x 0 100%;
+}
+
+#middle_div {
+	position: relative;
+	padding: 10px;
+	border: 0px;
+	width: 1000px;
+	height: 530px;
+	text-align: left;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#bottom_div {
+	position: relative;
+	clear: both;
+	width: 100%;
+	height: 25px;
+	text-align: center;
+	font-size: 12px;
+	line-height: 25px;
+	background: url(images/middle.jpg) repeat-x 0% 35% #9FC0EC;
+	padding-top: -50px;
+}
+
+#middle_left_div {
+	width: 210px;
+	height: 100%;
+	border: 1px ridge #9FC0EC;
+	display: block;
+	background: url(images/macback.png);
+	float: left;
+}
+
+#middle_center_div {
+	width: 15px;
+	padding-left: 5px;
+	height: 100%;
+	float: left;
+}
+
+#middle_center_div img {
+	margin-top: 180px;
+	vertical-align: middle;
+}
+
+#middle_right_div {
+	width: 766px;
+	height: 100%;
+	float: left;
+	border: 1px ridge #9FC0EC;
+}
+
+.title_div {
+	border: 0px;
+	height: 24px;
+	line-height: 24px;
+	text-indent: 1em;
+	color: #fff;
+	font-weight: bold;
+	font-size: 14px;
+	background: url(images/menubar.png) repeat-x 0 0;
+}
+
+#middle_left_div ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	background-color: #F0F0F0;
+}
+
+#middle_left_div a {
+	margin-left: 0px;
+	display: block;
+	color: #1276C6;
+	height: 20px;
+	line-height: 16px;
+	font-size: 14px;
+	text-decoration: none;
+	border-bottom: 1px dashed #ccc;
+	margin: 3px 0px 3px 0px;
+	text-align: left;
+	text-indent: 40px;
+	background: url(images/doc.gif) no-repeat 24px 1px #F0F0F0;
+	background: url();
+	padding: 3px;
+}
+
+#middle_left_div a:hover {
+	height: 16px;
+	line-height: 16px;
+	color: #f00;
+	border-bottom: 1px solid #ccc;
+	background-color: #7EC9FC;
+	background: url(images/doc_red.gif) no-repeat 24px 1px;
+}
+
+#middle_center_div img {
+	cursor: pointer;
+}
+
+#userInfo {
+	height: 40px;
+	line-height: 15px;
+	background: url(images/macback.png) #F0F0F0;
+	padding: 10px 0px 0px 5px;
+	font-size: 13px;
+	padding-left: 2em;
+}
