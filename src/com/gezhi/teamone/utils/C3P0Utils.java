@@ -16,7 +16,7 @@ public class C3P0Utils {
 		// TODO Auto-generated method stub
 		return ds.getConnection();
 	}
-	public static void closeAll(ResultSet rs , PreparedStatement psta,Connection con) {
+	public static void closeAll(ResultSet rs , PreparedStatement prep,Connection con) {
 		// TODO Auto-generated method stub
 		if (rs != null) {
 			try {
@@ -26,9 +26,9 @@ public class C3P0Utils {
 				e.printStackTrace();
 			}
 		}
-		if (psta != null) {
+		if (prep != null) {
 			try {
-				psta.close();
+				prep.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

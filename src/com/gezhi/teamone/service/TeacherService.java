@@ -38,5 +38,23 @@ public interface TeacherService {
 	 * @return
 	 */
 	public int getAllPageNums();
+	/**
+	 * 通过 cookie上的名字修改头像
+	 * @param name
+	 * @return
+	 */
+	public void changeImagByName(String url,String name);
+	/**
+	 * 通过姓名得到头像地址显示在网页
+	 * @param name
+	 * @return 地址
+	 */
+	public String getUrlByName(String name);
+	/**
+	 * 通过cookie中的name修改老师详细信息
+	 * @param name
+	 * @throws SQLException
+	 */
+	public void changUserInfoByName(String newName,String newTel,String newAddress,String nowname);
 
 }

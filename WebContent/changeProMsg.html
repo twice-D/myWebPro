@@ -132,6 +132,8 @@ body {
 	cursor: pointer;
 }
 
+<
+--
 #userInfo {
 	height: 40px;
 	line-height: 15px;
@@ -140,16 +142,21 @@ body {
 	font-size: 13px;
 	padding-left: 2em;
 }
+--
+>
 </style>
 
 </head>
 
 <body onload="loadPage()">
 	<div id="top_div">
-		<img src="images/logo.gif" />
+		<div align="left">
+			<img src="images/logo.gif" />
+		</div>
 	</div>
-	<div id="userInfo" align="left">
-		登录用户：<br /> 登录时间：
+	<div align="left">
+		<img src="upload/bird.jpg" >
+		<span>登录用户：登录时间：</span>
 	</div>
 	<div id="border_div"></div>
 	<div id="middle_div">
@@ -181,14 +188,54 @@ body {
 			</ul>
 			<div class="title_div">系统管理</div>
 			<ul>
-			    <li><a href="changeProMsg.html" target="mainFrame">修改个人信息</a></li>
+				<li><a href="changeProMsg.html" target="mainFrame">修改个人信息</a></li>
 				<li><a href="#" target="mainFrame">修改密码</a></li>
 				<li><a href="#" target="mainFrame">修改用户名</a></li>
 				<li><a href="#" target="_top">退出系统</a></li>
 			</ul>
 		</div>
-		<div>
-		     
+		<div style="height: 60px"></div>
+		<div align="center">
+			<div style="background-color: #F8E8D1; width: 410px; height: 350px"
+				align="center">
+				<div style="height: 30px"></div>
+				<form action="teacher/upload" method="post"
+					enctype="multipart/form-data">
+					<table>
+						<tr>
+							<td hidden="hidden"><input type="file" name="myfille"
+								id="upload"></td>
+						</tr>
+						<tr>
+							<td><span class="img"><img src="upload/bird.jpg"></span></td>
+							<td><input type="button" value="修改头像" id="uploadbtn">(60*75)</td>
+							<td><input type="submit" value="提交" id="imgbtn"></td>
+						</tr>
+					</table>
+				</form>
+				<div style="height: 30px"></div>
+
+				<table>
+					<tr>
+						<td>姓名:</td>
+						<td><input type="text" id="name" name="name"></td>
+					</tr>
+					<tr>
+						<td>电话:</td>
+						<td><input type="text" id="tel" name="phone"></td>
+					</tr>
+					<tr>
+						<td>地址:</td>
+						<td><input type="text" id="address" name="address"></td>
+					</tr>
+					<tr>
+						<td hidden="hidden"><input type="file" name="myfille"
+							id="upload"></td>
+						<td><input type="button" value="提交" id="upbtn"></td>
+					</tr>
+				</table>
+
+			</div>
 		</div>
 	</div>
 	<div id="bottom_div">金智教务系统网站，版权&copy归TeamOne所有</div>
@@ -196,6 +243,49 @@ body {
 </html>
 <script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
+	$("#upbtn").on("click", function() {
+		var url = "";
+		var name = $("#name").val()
+		var phone = $("#tel").val()
+		var address = $("#address").val()
+		$.ajax({
+			type : "post",
+			url : "teacher/changInfo",
+			data : "name=" + name + "&phone=" + phone + "&address=" + address,
+			success : function(msg) {
+				if (msg == "-1") {
+					alert("系统异常")
+				} else if (msg == "1") {
+					alert("修改成功")
+				} else if (msg == "-100") {
+					alert("请您输入！！")
+				}
+			}
+		})
+	})
+	$("#imgbtn").on("click", function() {
+		$.ajax({
+			type : "post",
+			url : "teacher/upload",
+			success : function(msg) {
+				if (msg == "-100") {
+					alert("图片上传异常")
+				} else if (msg == "-1") {
+					alert("服务器异常")
+				} else {
+					var url = "<img src="+msg+">"
+					$(".img").children().remove
+					$(".img").append(url)
+				}
+			}
+		})
+	})
+	var fileUpdate_button = document.getElementById("uploadbtn");
+	var fileUpdate_input = document.getElementById("upload");
+
+	fileUpdate_button.onclick = function() {
+		fileUpdate_input.click();
+	}
 	var width_before = "766px";
 	var width_hidden = "978px";
 	function close_open_leftmenu(imgBtn) {

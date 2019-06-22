@@ -36,4 +36,24 @@ public interface TeacherDao {
 	 * @throws SQLException 
 	 */
 	public int getAllPageNums() throws SQLException; 
+	/**
+	 * 通过 cookie上的名字修改地址
+	 * @param name
+	 * @return
+	 * @throws SQLException
+	 */
+	public void changeImagByName(String url,String name) throws SQLException;
+	/**
+	 * 通过姓名得到头像地址显示在网页
+	 * @param name
+	 * @return
+	 * @throws SQLException
+	 */
+	public String getUrlByName(String name) throws SQLException;
+	/**
+	 * 通过cookie中的name修改老师详细信息
+	 * @param name
+	 * @throws SQLException
+	 */
+	public void changUserInfoByName(String newName,String newTel,String newAddress,String nowname) throws SQLException;
 }

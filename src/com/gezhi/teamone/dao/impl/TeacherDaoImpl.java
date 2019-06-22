@@ -124,4 +124,45 @@ public class TeacherDaoImpl implements TeacherDao {
 		return pageNum;
 	}
 
+	@Override
+	public void changeImagByName(String url,String name) throws SQLException {
+		// TODO Auto-generated method stub
+	  String sql = "update tb_teacher  t set  t.image=?  where t.teacher_name=?";
+	  Connection con = C3P0Utils.getCon();
+	  PreparedStatement prep = con.prepareStatement(sql);
+	  prep.setString(1, url);
+	  prep.setString(2, name);
+	  prep.executeUpdate();
+	  C3P0Utils.closeAll(null, prep, con);
+	}
+
+	@Override
+	public String getUrlByName(String name) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "select image from tb_teacher where teacher_name=?";
+		String url = "";
+		Connection con = C3P0Utils.getCon();
+		PreparedStatement prep = con.prepareStatement(sql);
+		prep.setString(1, name);
+		ResultSet res = prep.executeQuery();
+		if(res.next()) {
+			url = res.getString("image");
+		}
+		return url;
+	}
+
+	@Override
+	public void changUserInfoByName(String newName,String newTel,String newAddress,String nowname) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql ="update tb_teacher set teacher_name=?,teacher_tel=?,teacher_address=? where teacher_name=?";
+		Connection con = C3P0Utils.getCon();
+		PreparedStatement prep = con.prepareStatement(sql);
+		prep.setString(1, newName);
+		prep.setString(2, newTel);
+		prep.setString(3, newAddress);
+		prep.setString(4, nowname);
+		prep.executeUpdate();
+		C3P0Utils.closeAll(null, prep, con);
+	}
+
 }

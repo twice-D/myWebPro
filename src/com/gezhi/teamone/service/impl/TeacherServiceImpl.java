@@ -11,9 +11,11 @@ import com.gezhi.teamone.service.TeacherService;
 public class TeacherServiceImpl implements TeacherService {
 
 	TeacherDao tdao = null;
+
 	public TeacherServiceImpl() {
 		tdao = new TeacherDaoImpl();
 	}
+
 	@Override
 	public List<Teacher> findAllTeacher(int pageCurr) {
 		try {
@@ -24,10 +26,11 @@ public class TeacherServiceImpl implements TeacherService {
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
+
 	@Override
-	public void updateTeacherById(Integer teacherId){
+	public void updateTeacherById(Integer teacherId) {
 		// TODO Auto-generated method stub
 		try {
 			tdao.updateTeacherById(teacherId);
@@ -36,6 +39,7 @@ public class TeacherServiceImpl implements TeacherService {
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public Teacher insertTeacher(String tName, Integer tGender, String tTel, String address, Integer type,
 			Integer adminId) {
@@ -49,6 +53,7 @@ public class TeacherServiceImpl implements TeacherService {
 		}
 		return null;
 	}
+
 	@Override
 	public Teacher showMsgById(Integer teacherId) {
 		// TODO Auto-generated method stub
@@ -61,6 +66,7 @@ public class TeacherServiceImpl implements TeacherService {
 		}
 		return null;
 	}
+
 	@Override
 	public int getAllPageNums() {
 		// TODO Auto-generated method stub
@@ -72,6 +78,41 @@ public class TeacherServiceImpl implements TeacherService {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public void changeImagByName(String url, String name) {
+		// TODO Auto-generated method stub
+		try {
+			tdao.changeImagByName(url, name);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public String getUrlByName(String name) {
+		// TODO Auto-generated method stub
+		try {
+			String url = tdao.getUrlByName(name);
+			return url;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public void changUserInfoByName(String newName, String newTel, String newAddress, String nowname) {
+		// TODO Auto-generated method stub
+		try {
+			tdao.changUserInfoByName(newName, newTel, newAddress, nowname);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
