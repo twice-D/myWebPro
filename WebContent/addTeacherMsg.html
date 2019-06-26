@@ -149,8 +149,10 @@ body {
 		<img src="images/logo.gif" />
 	</div>
 	<div align="left">
-	<img src="upload/bird.jpg" >
-		登录用户： 登录时间：
+		<img src="upload/bird.jpg" style="padding-left: 10px"> <i
+			style="position: absolute; margin-top: 10px">登陆用户:<span
+			id="wangName"></span></i> <i style="position: absolute; margin-top: 42px">登陆时间:<span
+			id="wangTime"></span></i>
 	</div>
 	<div id="border_div"></div>
 	<div id="middle_div">
@@ -158,34 +160,35 @@ body {
 
 			<div class="title_div">人员管理</div>
 			<ul>
-				<li><a href="addTeacherMsg.html" target="mainFrame">添加人员信息</a></li>
-				<li><a href="teacherManager.html" target="mainFrame">人员信息管理</a></li>
+				<li><a href="addTeacherMsg.html"id="mainFrame">添加人员信息</a></li>
+				<li><a href="teacherManager.html"id="mainFrame">人员信息管理</a></li>
 			</ul>
 			<div class="title_div">班级管理</div>
 			<ul>
-				<li><a href="#" target="mainFrame">添加班级信息</a></li>
-				<li><a href="#" target="mainFrame">班级信息管理</a></li>
+				<li><a href="gradeadd.html" id="mainFrame">添加班级信息</a></li>
+				<li><a href="grade.html" id="mainFrame">班级信息管理</a></li>
 			</ul>
 			<div class="title_div">学生管理</div>
 			<ul>
-				<li><a href="#" target="mainFrame">添加学生信息</a></li>
-				<li><a href="" target="mainFrame">学生信息管理</a></li>
+				<li><a href="#" id="mainFrame">添加学生信息</a></li>
+				<li><a href="#" id="mainFrame">学生信息管理</a></li>
 			</ul>
 			<div class="title_div">考勤管理</div>
 			<ul>
-				<li><a href="#" target="mainFrame">考勤信息管理</a></li>
+				<li><a href="#" id="mainFrame">考勤信息管理</a></li>
 			</ul>
 			<div class="title_div">就业管理</div>
 			<ul>
-				<li><a href="#" target="mainFrame">添加就业信息</a></li>
-				<li><a href="#" target="mainFrame">就业信息管理</a></li>
+				<li><a href="addStudentMsg.html"id="mainFrame" >添加就业信息</a></li>
+				<li><a href="starstudentmsg.html" id="mainFrame">就业信息管理</a></li>
 			</ul>
 			<div class="title_div">系统管理</div>
 			<ul>
-			    <li><a href="changeProMsg.html" target="mainFrame">修改个人信息</a></li>
-				<li><a href="#" target="mainFrame">修改密码</a></li>
-				<li><a href="#" target="mainFrame">修改用户名</a></li>
-				<li><a href="#" target="_top">退出系统</a></li>
+			   <li><a href="changeProMsg.html" id="mainFrame">修改个人信息</a></li>
+				<li><a href="ReviseTcherPwd.html"id="mainFrame">修改密码</a></li>
+				<li><a href="ReviseAdminName.html"id="mainFrame">修改用户名</a>
+				</li>
+				<li><a href="#" target="_top" id="goodBye">退出系统</a></li>
 			</ul>
 		</div>
 			<div class="container">
@@ -199,15 +202,15 @@ body {
 					</div>
 					<table class="table table-condensed table-bordered table-hover">
 							<tr>
-								<td>姓名</td>
+								<td>* 姓名</td>
 								<td><input type="text" id="name" placeholder="请输入姓名" required="required"></td>								
 							</tr>
 							<tr>
-								<td>性别</td>
+								<td>* 性别</td>
 								<td><input type="radio" id="gender" name="sex" value="1">男&nbsp;&nbsp;&nbsp;<input type="radio" id="gender" name="sex" value="0">女</td>								
 							</tr>
 							<tr>
-								<td>联系方式</td>
+								<td>* 联系方式</td>
 								<td><input type="text" id="tel" placeholder="联系方式" required="required"></td>								
 							</tr>
 							<tr>
@@ -249,6 +252,8 @@ body {
     				alert("添加成功!")
     			}else if(msg == "-1"){
     				alert("服务器异常，添加失败!!!!")
+    			}else if(msg == "-100"){
+    				alert("对不起，输入不能为空！！！")
     			}
     		}
     	})
@@ -299,4 +304,46 @@ body {
 		loadImage();
 		setPageSize();
 	}
+	//左上角显示老师姓名和登录时间
+	$(window).load(function() {
+		$.ajax({
+			type : "POST",
+			url : "summer/getCookie",
+			// data: "uName="+uName+"&uPwd="+uPwd+"&ck="+ck,
+			success : function(data) {
+				if (data == "-1") {
+					//alert("进入登录页")
+					window.location.href = "LoginTest.html";
+				}
+			}
+		});
+		var time = new Date().toLocaleString();
+		$.ajax({
+			type : "GET",
+			url : "summer/getTeacherName",
+			success : function(data) {
+				$("#wangName").text(data + " 老师")
+				$("#wangTime").text(time)
+				if (data != "-100") {
+					userName = data;
+				} else {
+					window.location.href = "LoginTest1.html";
+				}
+				//var users=$.parseJSON(data)
+				//for(var i=0;i<users.length;i++){
+				//alert(users[i].userName)
+				//}
+			}
+		});
+	});
+	$("#goodBye").click(function() {
+		$.ajax({
+			type : "POST",
+			url : "summer/goodBye",
+			//data: "uName="+uName,
+			success : function(data) {
+				window.location.href = "LoginTest.html";
+			}
+		});
+	})
 </script>

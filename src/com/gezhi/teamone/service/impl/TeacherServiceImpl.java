@@ -115,4 +115,17 @@ public class TeacherServiceImpl implements TeacherService {
 		}
 	}
 
+	@Override
+	public List<Teacher> findAllTeacherByInput(String str) {
+		// TODO Auto-generated method stub
+		try {
+			List<Teacher> list = tdao.findAllTeacherByInput(str);
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

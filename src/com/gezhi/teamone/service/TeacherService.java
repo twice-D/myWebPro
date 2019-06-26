@@ -56,5 +56,11 @@ public interface TeacherService {
 	 * @throws SQLException
 	 */
 	public void changUserInfoByName(String newName,String newTel,String newAddress,String nowname);
+	/**
+	 * 根据姓名模糊查询
+	 * @param str
+	 * @return
+	 */
+	public List<Teacher> findAllTeacherByInput(String str);
 
 }

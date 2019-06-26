@@ -21,6 +21,31 @@
 		<url-pattern>/teacher/*</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>admin</servlet-name>
+		<servlet-class>com.gezhi.teamone.controller.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>admin</servlet-name>
+		<url-pattern>/summer/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Grades</servlet-name>
+		<servlet-class>com.gezhi.teamone.controller.GradeServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Grades</servlet-name>
+		<url-pattern>/grade/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+  	<servlet-name>star</servlet-name>
+  	<servlet-class>com.gezhi.teamone.controller.StarStudentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  		<servlet-name>star</servlet-name>
+  		<url-pattern>/stars/*</url-pattern>
+  </servlet-mapping>
+	<servlet>
 		<servlet-name>default</servlet-name>
 		<servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
 		<init-param>

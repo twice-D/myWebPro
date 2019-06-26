@@ -7,6 +7,7 @@ public class Grade implements Serializable{
 	private String gradeName;
 	private Integer nowStudent;
 	private Integer teacherId;
+	private Teacher teacher;
 	public Grade(String gradeName, Integer nowStudent, Integer teacherId) {
 		super();
 		this.gradeName = gradeName;
@@ -35,10 +36,19 @@ public class Grade implements Serializable{
 	public void setTeacherId(Integer teacherId) {
 		this.teacherId = teacherId;
 	}
+	
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
 	@Override
 	public String toString() {
-		return "Grade [gradeName=" + gradeName + ", nowStudent=" + nowStudent + ", teacherId=" + teacherId + "]";
+		return "Grade [gradeName=" + gradeName + ", nowStudent=" + nowStudent + ", teacherId=" + teacherId
+				+ ", teacher=" + teacher + "]";
 	}
+	
 	
 	
 }

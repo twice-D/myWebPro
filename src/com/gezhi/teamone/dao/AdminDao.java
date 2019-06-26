@@ -9,12 +9,33 @@ public interface AdminDao {
 	 * 默认账号：gezhi xxx
 	 * 密码:123456
 	 * @return
+	 * @throws Exception 
 	 */
-	public void insertAdmin();
+	public void insertAdmin() throws Exception;
 	/**
-	 * 实现登录，根据账号密码查询数据库，返回Admin对象
-	 * 判断是否为空，为空说明该用户不存在
+	 * 修改管理员账号
+	 * @param oldtName
+	 * @param newtName
 	 * @return
+	 * @throws Exception
 	 */
-	public Admin selectAdmin(Integer adminId);
+	int setAdminNames(String oldtName, String newtName) throws Exception;
+	/**
+	 * 实现登录
+	 * @param uName
+	 * @param uPwd
+	 * @return
+	 * @throws Exception
+	 */
+	String login(String uName, String uPwd) throws Exception;
+	/**
+	 * 修改管理员密码
+	 * @param oldtName
+	 * @param tPwd
+	 * @param newtPwd
+	 * @return
+	 * @throws Exception
+	 */
+	public int setAdminPwd(String oldtName, String tPwd, String newtPwd) throws Exception;
+	
 }

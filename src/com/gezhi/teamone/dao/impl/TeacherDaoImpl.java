@@ -165,4 +165,30 @@ public class TeacherDaoImpl implements TeacherDao {
 		C3P0Utils.closeAll(null, prep, con);
 	}
 
+	@Override
+	public List<Teacher> findAllTeacherByInput(String str) throws SQLException{
+		// TODO Auto-generated method stub
+		List<Teacher> list = new ArrayList<Teacher>();
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT t.teacher_id,t.teacher_name,t.teacher_gender,t.teacher_type,t.admin_id  ");
+		sb.append(" FROM tb_teacher t  WHERE  ");
+		sb.append(" t.teacher_name LIKE ? ");
+		Connection con = C3P0Utils.getCon();
+		PreparedStatement prep = con.prepareStatement(sb.toString());
+		String url = "%"+str+"%";
+		prep.setString(1, url);
+		ResultSet res = prep.executeQuery();
+		Teacher teacher = null;
+		while(res.next()) {
+			int id = res.getInt("teacher_id");
+			String tName = res.getString("teacher_name");
+			int gender = res.getInt("teacher_gender");
+			int type = res.getInt("teacher_type");
+			int adminId = res.getInt("admin_id");
+			teacher = new Teacher(id, tName, gender, type, adminId);
+			list.add(teacher);
+		}
+		return list;
+	}
+
 }

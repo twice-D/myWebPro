@@ -131,15 +131,6 @@ body {
 #middle_center_div img {
 	cursor: pointer;
 }
-
-#userInfo {
-	height: 40px;
-	line-height: 15px;
-	background: url(images/macback.png) #F0F0F0;
-	padding: 10px 0px 0px 5px;
-	font-size: 13px;
-	padding-left: 2em;
-}
 </style>
 
 </head>
@@ -149,8 +140,10 @@ body {
 		<img src="images/logo.gif" />
 	</div>
 	<div align="left">
-	<img src="upload/bird.jpg" >
-		登录用户： 登录时间：
+		<img src="upload/bird.jpg" style="padding-left: 10px"> <i
+			style="position: absolute; margin-top: 10px">登陆用户:<span
+			id="wangName"></span></i> <i style="position: absolute; margin-top: 42px">登陆时间:<span
+			id="wangTime"></span></i>
 	</div>
 	<div id="border_div"></div>
 	<div id="middle_div">
@@ -158,34 +151,35 @@ body {
 
 			<div class="title_div">人员管理</div>
 			<ul>
-				<li><a href="addTeacherMsg.html" target="mainFrame">添加人员信息</a></li>
-				<li><a href="teacherManager.html" target="mainFrame">人员信息管理</a></li>
+				<li><a href="addTeacherMsg.html" id="mainFrame">添加人员信息</a></li>
+				<li><a href="teacherManager.html" id="mainFrame">人员信息管理</a></li>
 			</ul>
 			<div class="title_div">班级管理</div>
 			<ul>
-				<li><a href="#" target="mainFrame">添加班级信息</a></li>
-				<li><a href="#" target="mainFrame">班级信息管理</a></li>
+				<li><a href="gradeadd.html"id="mainFrame">添加班级信息</a></li>
+				<li><a href="grade.html" id="mainFrame">班级信息管理</a></li>
 			</ul>
 			<div class="title_div">学生管理</div>
 			<ul>
-				<li><a href="#" target="mainFrame">添加学生信息</a></li>
-				<li><a href="" target="mainFrame">学生信息管理</a></li>
+				<li><a href="#"id="mainFrame">添加学生信息</a></li>
+				<li><a href="" id="mainFrame">学生信息管理</a></li>
 			</ul>
 			<div class="title_div">考勤管理</div>
 			<ul>
-				<li><a href="#" target="mainFrame">考勤信息管理</a></li>
+				<li><a href="#" id="mainFrame">考勤信息管理</a></li>
 			</ul>
 			<div class="title_div">就业管理</div>
 			<ul>
-				<li><a href="#" target="mainFrame">添加就业信息</a></li>
-				<li><a href="#" target="mainFrame">就业信息管理</a></li>
+				<li><a href="#" id="mainFrame">添加就业信息</a></li>
+				<li><a href="#" id="mainFrame">就业信息管理</a></li>
 			</ul>
 			<div class="title_div">系统管理</div>
 			<ul>
-			    <li><a href="changeProMsg.html" target="mainFrame">修改个人信息</a></li>
-				<li><a href="#" target="mainFrame">修改密码</a></li>
-				<li><a href="#" target="mainFrame">修改用户名</a></li>
-				<li><a href="#" target="_top">退出系统</a></li>
+				<li><a href="changeProMsg.html" id="mainFrame">修改个人信息</a></li>
+				<li><a href="ReviseTcherPwd.html" id="mainFrame">修改密码</a></li>
+				<li><a href="ReviseAdminName.html"id="mainFrame">修改用户名</a>
+				</li>
+				<li><a href="#" target="_top" id="goodBye">退出系统</a></li>
 			</ul>
 		</div>
 		<div class="container">
@@ -203,6 +197,9 @@ body {
 						<div style="height: 30px"></div>
 					</div>
 					<table class="table table-condensed table-bordered table-hover">
+						<span><input type="text" id="serch" placeholder="请输入姓名或字符">
+							<input type="button" value="查询 " id="seachbtn"><input
+							type="button" value="清空" id="clear"></span>
 						<thead>
 							<tr>
 								<th></th>
@@ -221,7 +218,7 @@ body {
 					</table>
 					<div align="center">
 						<input type="button" id="firstpage" value="首页"><span
-							id="pagebtn"></span><input type="text"><input
+							id="pagebtn"></span><input type="text" id="gopage"><input
 							type="button" id="gotopage" value="跳转"><input
 							type="button" id="lastpage" value="尾页">
 					</div>
@@ -240,18 +237,89 @@ body {
 </html>
 <script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
-    var maxpage;
-    var pagenownum;
+	var maxpage;
+	var pagenownum;
 	$(function() {
 		teachersMsg(1);
 		getpageNum();
 	})
+	//查询信息
+	$("#seachbtn")
+			.on(
+					"click",
+					function() {
+						var strname = $("#serch").val()
+						$
+								.ajax({
+									type : "get",
+									url : "teacher/findMsgByCase",
+									data : "strname=" + strname,
+									success : function(msg) {
+										if (msg == "0") {
+											alert("对不起该用户不存在!!")
+										} else if (msg == "-1") {
+											alert("输入不能为空!!")
+										} else if (strname != null) {
+											var teacher = $.parseJSON(msg)
+											var sex = "";
+											var utr = "";
+											var leix = "";
+											$("#teachermsg tr").remove()
+											for (var i = 0; i < teacher.length; i++) {
+												if (teacher[i].tGender == 0) {
+													sex = "女"
+												} else {
+													sex = "男"
+												}
+												if (teacher[i].type == 1) {
+													leix = "在职"
+												}
+												var str = "<tr class='tmsg'><td>"
+														+ "<input class='checkbtn' type="+"checkbox"+ ">"
+														+ "</td><td>"
+														+ teacher[i].teacherId
+														+ "</td><td>"
+														+ teacher[i].tName
+														+ "</td><td>"
+														+ sex
+														+ "</td><td>"
+														+ leix
+														+ "</td><td>"
+														+ teacher[i].adminId
+														+ "</td><td>"
+														+ "<input style='color:black;' class='debtn' type="+"button"+" value="+"删除"+">"
+														+ "</td></tr>";
+												utr += str
+											}
+											$("#teachermsg").append(utr);
+										}
+									}
+								})
+					})
+	//点击清空按钮返回列表，并清空文本框的值
+	$("#clear").on("click", function() {
+		$(":text").val("");
+		teachersMsg(1)
+	})
+
+	//验证页数跳转
+	$("#gotopage").on("click", function() {
+		var value = $("#gopage").val()
+		var reg = /[0-9]/
+		if (reg.test(value)) {
+			teachersMsg(value)
+		} else if (value > maxpage) {
+			alert("对不起，您输入有误!")
+		} else {
+			alert("对不起，您输入有误!")
+		}
+	})
 	//点击首页跳到第一页
-	$("#firstpage").on("click",function(){
+	$("#firstpage").on("click", function() {
 		teachersMsg(1);
 	})
 	//点击尾页，跳转到最后一页
-	$("#lastpage").on("click",function(){
+	$("#lastpage").on("click", function() {
 		teachersMsg(maxpage);
 	})
 	//删除方法根据老师id
@@ -267,19 +335,19 @@ body {
 					$delete.remove();
 					$("#pagebtn").children().remove()
 					var trlenth = $("#teachermsg").find("tr").length
-					if(pagenownum == 1){
-					   if(trlenth == 0){
-						    getpageNum();
-						    teachersMsg(pagenownum + 1)														
-					   }else{
-						    teachersMsg(pagenownum)
-						    window.location.reload()
-					   }
-					}else{
-					   if(trlenth == 0){
-						    getpageNum();
-						    teachersMsg(pagenownum - 1)	
-					     }
+					if (pagenownum == 1) {
+						if (trlenth == 0) {
+							getpageNum();
+							teachersMsg(pagenownum + 1)
+						} else {
+							teachersMsg(pagenownum)
+							window.location.reload()
+						}
+					} else {
+						if (trlenth == 0) {
+							getpageNum();
+							teachersMsg(pagenownum - 1)
+						}
 					}
 				} else if (msg == "-1") {
 					alert("服务器正在维修，请稍后重试！")
@@ -313,7 +381,8 @@ body {
 	//显示教师信息
 	function teachersMsg(pagecurr) {
 		pagenownum = pagecurr
-		    $.ajax({
+		$
+				.ajax({
 					type : "get",
 					url : "teacher/findAllteacher",
 					data : "pagecurr=" + pagecurr,
@@ -358,7 +427,9 @@ body {
 				})
 	}
 	//双击显示老师详细信息（电话，住址，管理的班级以及班级人数）
-	$(".tmsg").live("dblclick ",function() {
+	$(".tmsg").live(
+			"dblclick ",
+			function() {
 				var id = $(this).children().eq(1).text()
 				$.ajax({
 					type : "get",
@@ -427,4 +498,46 @@ body {
 		loadImage();
 		setPageSize();
 	}
+	//左上角显示老师姓名和登录时间
+	$(window).load(function() {
+		$.ajax({
+			type : "POST",
+			url : "summer/getCookie",
+			// data: "uName="+uName+"&uPwd="+uPwd+"&ck="+ck,
+			success : function(data) {
+				if (data == "-1") {
+					//alert("进入登录页")
+					window.location.href = "LoginTest.html";
+				}
+			}
+		});
+		var time = new Date().toLocaleString();
+		$.ajax({
+			type : "GET",
+			url : "summer/getTeacherName",
+			success : function(data) {
+				$("#wangName").text(data + " 老师")
+				$("#wangTime").text(time)
+				if (data != "-100") {
+					userName = data;
+				} else {
+					window.location.href = "LoginTest1.html";
+				}
+				//var users=$.parseJSON(data)
+				//for(var i=0;i<users.length;i++){
+				//alert(users[i].userName)
+				//}
+			}
+		});
+	});
+	$("#goodBye").click(function() {
+		$.ajax({
+			type : "POST",
+			url : "summer/goodBye",
+			//data: "uName="+uName,
+			success : function(data) {
+				window.location.href = "LoginTest.html";
+			}
+		});
+	})
 </script>

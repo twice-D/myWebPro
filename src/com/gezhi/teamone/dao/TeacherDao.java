@@ -56,4 +56,11 @@ public interface TeacherDao {
 	 * @throws SQLException
 	 */
 	public void changUserInfoByName(String newName,String newTel,String newAddress,String nowname) throws SQLException;
+	/**
+	 * 根据输入姓名查询内容（模糊查询）
+	 * @param str
+	 * @return
+	 * @throws SQLException 
+	 */
+	public List<Teacher> findAllTeacherByInput(String str) throws SQLException;
 }
